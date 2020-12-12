@@ -35,7 +35,7 @@ public class BoostrapData implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-
+/*
 		Payment p1 =new Payment(250,Method.VISA);
 		Invoice i1 = new Invoice(123,Status.PAID,336);
 		Client client1 = new Client("oussama","mahraoui");
@@ -55,7 +55,7 @@ public class BoostrapData implements CommandLineRunner{
 	invoiceRepository.save(i1);
 	clientRepository.save(client1);
 	System.out.println("started in Boostrap");
-	System.out.println("Number of payments "+paymentReposirory.count());
+	System.out.println("Number of payments "+paymentReposirory.count());*/
 
 
 	}
