@@ -8,25 +8,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Transaction   implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     @JsonManagedReference
 
 	private Long id;
 	private Date dateCreated;
-	private float Value;
+	private double Value;
 	
 	public Transaction() {
 	}
 	
-	public Transaction(float value) {
+	public Transaction(double value) {
 		this.Value = value;
 		this.dateCreated=new Date();
 	}
@@ -47,7 +51,7 @@ public abstract class Transaction   implements Serializable {
 		this.dateCreated = dateCreated;
 	}
 
-	public float getValue() {
+	public double getValue() {
 		return Value;
 	}
 

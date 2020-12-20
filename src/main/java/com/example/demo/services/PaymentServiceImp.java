@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,23 @@ public class PaymentServiceImp implements PaymentService {
 	}
 
 	@Override
-	public List<Transaction> getAllPayment() {
-		return  paymentReposirory.findAll();
+	public List<Payment> getAllPayments() {
+		return  paymentReposirory.getAllPayments();
 
 	}
+	@Override
+	public List<Payment> getAllTransaction() {
+		return  paymentReposirory.getAllPayments();
+
+	}
+
+	@Override
+	public List<Transaction> getByDatePayment(Date startDate ,Date endDate) {
+		return paymentReposirory.getAllBetweenDates(startDate, endDate) ;
+	}
+
+
+	
+	
 
 }

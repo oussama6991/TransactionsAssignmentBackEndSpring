@@ -1,13 +1,14 @@
 package com.example.demo.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.Repositories.InvoiceRepository;
 import com.example.demo.entities.Invoice;
-import com.example.demo.entities.Transaction;
-
+@Service
 public class InvoiceServiceImpl implements InvoiceService{
 	@Autowired
 	private InvoiceRepository invoiceRepository;
@@ -36,11 +37,20 @@ public class InvoiceServiceImpl implements InvoiceService{
 	}
 
 	@Override
-	public List<Transaction> getAllPayment() {
-		return  invoiceRepository.findAll();
+	public List<Invoice> getAllnvoice() {
+		return  invoiceRepository.getAllInvoices();
 
 	}
 
-	
+	@Override
+	public List<Invoice> getByDateInvoice(Date startDate, Date endDate) {
+				return  invoiceRepository.getAllBetweenDates(startDate, endDate);
+
+	}
+
+	public List<Object[]> getInvoicesWithTotalPayment(){
+		return invoiceRepository.getAllPaymentsInInvoice();
+		
+	}
 	
 }

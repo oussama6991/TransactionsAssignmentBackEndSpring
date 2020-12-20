@@ -8,16 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.OneToMany;
 
 import com.example.demo.enumerations.Status;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
+//@PrimaryKeyJoinColumn(name = "id")
 public class Invoice extends Transaction{
 
 	private static final long serialVersionUID = 1L;
@@ -25,18 +24,19 @@ public class Invoice extends Transaction{
     private Status status ;
 	private long number;
 	
-	@ManyToMany(mappedBy="invoices")
-	 @JsonBackReference
+		@OneToMany(mappedBy="invoice")
+		//@JoinColumn(name="invoice_fk")
+	    @JsonBackReference
 	private Set<Payment> payments=new HashSet<>();
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
-	 @JsonBackReference
-	private Client client ;
+		   @ManyToOne
+		   @JoinColumn(name="client_id",nullable=false)
+		   private Client client ;
 	
 	public Invoice() {
 		super();
 	}
-	public Invoice(float value,Status status,long number) {
+	public Invoice(double value,Status status,long number) {
 		super(value);
 		this.status = status;
 		this.number = number;
