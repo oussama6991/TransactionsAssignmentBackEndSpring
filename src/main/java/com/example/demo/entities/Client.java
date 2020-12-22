@@ -23,8 +23,7 @@ public class Client {
 	private String fristName;
 	private String lastName;
 	
-    @OneToMany
-    @JoinColumn(name = "client_id")
+    @OneToMany(mappedBy="client")
     @JsonBackReference
     private Set<Invoice> invoices= new HashSet<>();
     

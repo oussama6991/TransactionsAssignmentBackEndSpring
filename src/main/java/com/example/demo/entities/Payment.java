@@ -1,7 +1,5 @@
 package com.example.demo.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,33 +7,32 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.example.demo.enumerations.Method;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "id")
 @JsonIgnoreProperties("invoices")
+
 public class Payment extends Transaction{
 
 	private static final long serialVersionUID = 1L;
 	@Enumerated(EnumType.ORDINAL)
     private Method  method;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinTable(name="invoice_payment",joinColumns = @JoinColumn(name="payment_id"),
-	inverseJoinColumns =  @JoinColumn(name="invoice_id"))
-	private Set<Invoice> invoices =new HashSet<>();
+	//@ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	   @ManyToOne
+	   @JoinColumn(name="invoice_id",nullable=false)
+	 @JsonBackReference
+	private Invoice invoice ;
+	
 	
 	public Payment() {
 		super();
 	}
-	public Payment(float value,Method method) {
+	public Payment(double value,Method method) {
 		super(value);
 		this.method = method;
 	}
@@ -49,12 +46,20 @@ public class Payment extends Transaction{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public Set<Invoice> getInvoices() {
-		return invoices;
+
+	public Invoice getInvoice() {
+		return invoice;
 	}
-	public void setInvoices(Set<Invoice> invoices) {
-		this.invoices = invoices;
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
+	@Override
+	public String toString() {
+		return "Payment [method=" + method + ", invoices=" + invoice + ", getId()=" + getId() + ", getDateCreated()="
+				+ getDateCreated() + ", getValue()=" + getValue() + "]";
+	}
+
+	
 
 	
 	
